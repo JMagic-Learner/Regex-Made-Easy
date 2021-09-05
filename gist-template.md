@@ -7,13 +7,20 @@ Somewhere along the line as a coder, you've probably heard of Regex Expressions.
 We are going to search for a specific url in a list of urls. Think of trying to search through a list of websites and thier corresponding passwords.
 
 Take this following website urls. This is pretty standard plaintext.
+
+TARGET URL (What needs to be searched via REGEX)
+
 https://www.ZenithHighlight.com
 https://www.facebook.com
 https://www.sample.edu
+http://www.vertex123.gov
 
-DUMMY TARGET
+DUMMY TARGET/CODE (Used to test false positives)
 
 com.facebook.www//:https
+http://www.vertex.jello
+1213$$$vvv.jt3456.$$%hs
+
 
 `/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
@@ -161,7 +168,7 @@ Here is when we add a bracket []
 
 Remember, brackets can affect multiple types of characters. Unlike groups, which target a specific set, brackets address the categories.
 
-think of () as looking for rice, while {} can look for rice or Grains
+think of {} as looking for rice, while [] can look for rice or Grains
 
 For example, you can type out ZenithHighlight. Or you can type in [a-zA-z] to seach for all character strings. Lets check out character classes in the next section
 
@@ -173,9 +180,9 @@ for example, the vast majority of text in this md is of the text "class". Charac
 Character classes is special notation for matching cateogires of characters.
 
 Examples
- [a-z] searchers for a single character in  lowercase text.
- [A-Z] searchers for a single character in all uppercase text
- [0-9]
+ [a-z]  Searches for a single character in  lowercase text.
+ [A-Z]  Searches for a single character in all uppercase text
+ [0-9]  Searches for numerical characters
  0[xX][A-Fa-f0-9]+ searches for CSS hexadecimal numbers
 
 
@@ -183,13 +190,45 @@ Examples
 
  sample code `^https:/{2}(w{3}).[a-zA-z0-9]\w*`
 
+ The aboe sample code section; `[a-zA-z0-9]` allows us to search for any character, any digit after the "www.". The "\w*" then notates that we are taking a succession, or sequence of characters that fullfil the search criteria of any character/any digit.
+
 ### The OR Operator
-
-
 
 |       - Either Or
 
+If you've been following along the tutorial so far, you'd probably remember that near the beginning of this tutorial we had to address how to find capture both https and http search values.
+
+If we had used the above class contraint [a-zA-Z0-9]\w* to search for https or http, this regex expression would've found any string sequence in front of a non-digit/non-character. Instead, we can narrow down the starting search values by using the "|" expression. 
+
+First, we have to use a group () to associate https and http. Add the | operator in between https and http to get the this following starter code;
+
+starter code: `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
+
+using this above code now captures the http://www.vertex.gov target expression.
+
 ### Flags
+
+Flags are operators that add utility to regex expressions;
+
+Lets take a look at some flags;
+
+`i` - Denoted after a slash, the `i` operator will search for values , ignoring case sensitivity.
+
+For example \hello\i would match 
+HELLO, 
+Hello, 
+HeLlO, 
+heLLO
+
+`g` - Would allow the search to find all search values containing the parameter. By default, only the first search value would appear.
+
+`m` - Allows the search value to cover parameters that are broken in two lines.
+
+`s` - Gives the search function the capabality to newline character
+
+`u` - Enables full unicode support for REGEX EXPRESSIONS
+
+`y` - Allows search functions to find the position of parameters
 
 ### Character Escapes
 
@@ -223,6 +262,20 @@ In fact, the above regex would also find any single words encased in brackets.
 \S      - Not Whitespace (space, tab, newline)
 \D      - Not a Digit (0-9)
 \W      - Not a Word Character
+
+lets take the starting code `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
+
+We know now that the "." can be expressed as `.` , `\W`. lets go ahead and add this value to account for the "."
+
+`^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*\W`
+
+Now lets account for the .edu, .gov, .com variations in urls.
+
+We could do a hard code `(edu|gov|com)`, or `[a-zA-z0-9]\w*`
+
+Using the latter would actually hit a dummy code. The former narrows the values of the search to a valid URL.
+
+`^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W(edu|gov|com)`
 
 ## Author
 

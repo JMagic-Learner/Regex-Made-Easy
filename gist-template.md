@@ -1,3 +1,4 @@
+
 # Regex Expressions - Finding "Nemo" 
 
 Somewhere along the line as a coder, you've probably heard of Regex Expressions. An regex expression is essentially a search function built into many coding engines that allows the user to find specific text.

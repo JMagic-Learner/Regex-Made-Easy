@@ -7,7 +7,7 @@ Somewhere along the line as a coder, you've probably heard of Regex Expressions.
 
 We are going to search for a specific url in a list of urls. Think of trying to search through a list of websites and thier corresponding passwords.
 
-Take this following website urls. This is pretty standard plaintext.
+Take these following website urls. This is pretty standard plaintext.
 
 TARGET URL (What needs to be searched via REGEX)
 
@@ -15,6 +15,7 @@ https://www.ZenithHighlight.com
 https://www.facebook.com
 https://www.sample.edu
 http://www.vertex123.gov
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
 DUMMY TARGET/CODE (Used to test false positives)
 
@@ -22,17 +23,22 @@ com.facebook.www//:https
 http://www.vertex.jello
 1213$$$vvv.jt3456.$$%hs
 
+We are first going to generate our own REGEX expression via a step by step walkthrough. 
+In addition to this, we are going to take a look at the UWBootcamp REGEX expression, that is more comprehensive.
+The UW Bootcamp versioon of the REGEX expression will also be explained along the way.
 
-`/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
-however in Regex Expression, it'll look like this,
+This is our starter code:
 
+`^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
 
-^(https|http)\W\W\W[a-zA-z]\w*\W[a-zA-Z]\w*\W[a-zA-z]\w*
+This is the UW Bootcamp variation;
+
+`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
 Use the Ctrl-F (Search) and click the .* option in VS code. The .* function allows the search to use regex expressions to find matching strings.
 
-Now the above Regex expression probably looks absolute trash, but the following definitions and tutorials will help you understand how the above code matches the target url.
+Now the above Regex expression probably looks absolute gibberish, but the following definitions and tutorials will help you understand how the above code matches the target url.
 
 ## Table of Contents
 
@@ -44,6 +50,7 @@ Now the above Regex expression probably looks absolute trash, but the following 
 - [The OR Operator](#the-or-operator)
 - [Flags](#flags)
 - [Character Escapes](#character-escapes)
+- [Ending Regex](#ending-regex)
 
 ## Regex Components
 
@@ -61,7 +68,8 @@ Anchors
 #### Sample Regexs ####
 
 The sample REGEX we will be discussing is a simple search of any URL.
-`(http|https)\W\W\W[a-zA-z0-9]\w*\W\w*[a-zA-z]`
+
+`^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
 
 We will discuss how to generate this string step by step. Throughout the process, we will dicuss the relevancy of each component being added to the REGEX expression.
 
@@ -91,6 +99,13 @@ As you can see, while anchors can be used to find the beginning and ending strin
 
 For right now, lets keep `^https:` as a starter REGEX expression.
 
+Our starter code: `^https:`
+
+UW Bootcamp starter code: `^(https?:\/\/)?`
+
+UW Bootcamp starter code explanation:
+
+We first denote the starting search string. Next we include a (if) by usage of a `?`. Basically, if there is a https value, then follow the value with a hardcoded `://`. Secondly, there is another `?` following this denoting a conditional presence.
 
 ### Quantifiers
 
@@ -123,6 +138,14 @@ or
 
 As you can see, there are many ways to denote duplicate sequential characters
 
+UW Bootcamp Tutorial Regex;
+
+`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+So far we explained `^(https?:\/\/)?`.
+
+In terms of qauntifiers, there is asn instance of an quantifier denoted by `{2,6}`. This quanitfier is a range, which specifically calls to search/find 2 to 6 instances of a certian set. Given the immediate preceding REGEX, we are searching for "clusters"  of `[a-z\.]`, . This cluster is essentially a directory, akin to how you have www.example.com/home or www.example.com/profile/details.
+
 
 ### Grouping Constructs
 
@@ -142,6 +165,29 @@ You're thinking, why in the world would we do this? `^https:/{2}www` or ``^https
 
 The reason is what happens if there is a custom lead url as well as instead of WWW?
 You would then need to find a way to search for the custom lead url and www, just like you would need to find a way to account for https vs http and .com vs edu vs gov."
+
+UW Bootcamp Tutorial:
+
+`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+Lets begin by identifying the groups in this REGEX.
+
+`^(Group1)?(Group2)\.(Group3)(Group4)*\/?$/`
+
+Group 1:
+(https?:\/\/) - An expression that conditionally adds "://" if there is an http
+
+Group 2:
+([\da-z\.-]+) - Finds one or more instances of a string of characters separated by a period
+
+Groupe 3: 
+([a-z\.]{2,6}) - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
+
+Group 4:
+
+([\/\w \.-]*)* - This would account for trailing ends of the URL
+
+
 
 ### Bracket Expressions
 
@@ -173,6 +219,25 @@ think of {} as looking for rice, while [] can look for rice or Grains
 
 For example, you can type out ZenithHighlight. Or you can type in [a-zA-z] to seach for all character strings. Lets check out character classes in the next section
 
+UW Bootcamp Tutorial:
+
+`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+
+Touching off from groups, we can see brackets inside some of our group sections. We find brackets in Group 1, Group 2, and Group 3
+
+Group 2:
+([\da-z\.-]+) - Is specifically looking for all lowercase characters a-z followed by a character escape of a period. This is specifcally looking for one or more instances of this value. Examples would be www.zenith or www.hero.
+
+Group 3: 
+([a-z\.]{2,6}) - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
+
+Group 4:
+
+([\/\w \.-]*)* - This is looking for the escaped slash mark, a word character, and a escaped period
+
+
+
 ### Character Classes
 
 Think of character classes as a category of characters that you are searching for. 
@@ -191,7 +256,26 @@ Examples
 
  sample code `^https:/{2}(w{3}).[a-zA-z0-9]\w*`
 
- The aboe sample code section; `[a-zA-z0-9]` allows us to search for any character, any digit after the "www.". The "\w*" then notates that we are taking a succession, or sequence of characters that fullfil the search criteria of any character/any digit.
+ The above sample code section; `[a-zA-z0-9]` allows us to search for any character, any digit after the "www.". The "\w*" then notates that we are taking a succession, or sequence of characters that fullfil the search criteria of any character/any digit.
+
+ UW Bootcamp Tutorial:
+
+ `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`
+
+So far we've talked about
+
+- `^(https?:\/\/)?` - A conditional starter. That searchers for the presence of https;
+- `([a-z\.]{2,6})` - That searches for the directory listsings following .com/edu/gov.
+
+UW Bootcamp Tutorial 
+
+`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+As you can see, we can explicitly find examples of character classes in the UW Regex.
+As built on from prior sections, we can clearly see why the regex expression is looking for generalized ranges of characters. By doing so, you can call out www. , domain names, and .edu/gov/etc ending urls.
+
+`([\da-z\.-]+)` will try to find all one or more instances of `[\da-z\.-]`
+
 
 ### The OR Operator
 
@@ -203,9 +287,13 @@ If we had used the above class contraint [a-zA-Z0-9]\w* to search for https or h
 
 First, we have to use a group () to associate https and http. Add the | operator in between https and http to get the this following starter code;
 
-starter code: `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
+Starter code: `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
 
 using this above code now captures the http://www.vertex.gov target expression.
+
+UW Bootcamp Tutorial:
+
+There isnt a or variable listed in the UW Bootcamp Regex
 
 ### Flags
 
@@ -231,9 +319,13 @@ heLLO
 
 `y` - Allows search functions to find the position of parameters
 
+From experimenting in VS code so far, you might notice that VS code seems to have a number of these Flags on by default. 
+
 ### Character Escapes
 
-Backlashes in the regex expression are "escapes". They are used to find meta characters.
+Backlashes in the regex expression are "escapes". Character escapes allow searches to account for metacharacters.
+
+The purpose of the `/` is to signify the next character is not an operator. There is a difference in say, a + sign to denote a mathematical equation, and a `+` sign to denote one or more 
 
 Metacharacters are: . [] {} () \ / ^ $ | ? ! * + - 
 
@@ -264,7 +356,7 @@ In fact, the above regex would also find any single words encased in brackets.
 \D      - Not a Digit (0-9)
 \W      - Not a Word Character
 
-lets take the starting code `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
+Lets take the starting code `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
 
 We know now that the "." can be expressed as `.` , `\W`. lets go ahead and add this value to account for the "."
 
@@ -277,6 +369,32 @@ We could do a hard code `(edu|gov|com)`, or `[a-zA-z0-9]\w*`
 Using the latter would actually hit a dummy code. The former narrows the values of the search to a valid URL.
 
 `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W(edu|gov|com)`
+
+UW Bootcamp Tutorial:
+
+`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+There are many character escapes in this REGEX.
+
+We can find 2 character escapes in the first group. `^(https?:\/\/)?`. Using character escapes tells to the search function that the slashes are not operators.
+
+The next character escape is in hte second group; `([\da-z\.-]+)`. The character escaped "." denotes the period in between www and the domain name.
+
+There is an explicit hardcoded `\.` that denotes the period after the domain name.
+
+You then have `([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+Like i have explained before, the REGEX is looking for successive strings separated by slash marks. 
+
+## ENDING REGEX.
+
+UW Bootcamp Version: `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+
+- Searches for URLs and expanded directories
+
+Starter Code Version: `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
+
+- Searchers for URLS wihtout expanded directories.
 
 ## Author
 

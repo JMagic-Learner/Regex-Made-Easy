@@ -129,9 +129,9 @@ Quantifiers:
 {3}     - Exact Number
 {3,4}   - Range of Numbers (Minimum, Maximum)
 
-With the starter code '^https:', lets add a way to find the slash marks after https:
+With the starter code `^https:`, lets add a way to find the slash marks after https:
 
-we can denote "//" as '/{2}' or '/+'
+we can denote "//" as `/{2}` or `/+`
 
 So far the regex code can either be; `^https:/{2}` or `^https:/+`
 
@@ -209,11 +209,10 @@ take for instance this sample code;
 []      - Matches Characters in brackets
 [^ ]    - Matches Characters NOT in brackets
 
-starter code: `^https:/{2}(w{3})`
+Starter code: `^https:/{2}(w{3})`
 
 So far we have (w{3}) to denote "www". Right now, we can define sequential duplicated character strings. Lets add a "." (period) after to account for the period after the "www". 
 
-starter code `^https:/{2}(w{3}).`
 
 Here is when we add a bracket []
 
@@ -264,6 +263,8 @@ Our Starter code:  `^https:/{2}(w{3}).[a-zA-z0-9]\w*`
 
  The above sample code section; `[a-zA-z0-9]` allows us to search for any character, any digit after the "www.". The "\w*" then notates that we are taking a succession, or sequence of characters that fullfil the search criteria of any character/any digit.
 
+ We can also add the `[a-zA-z0-9]` bracket to account for the fact that not all urls have "www" in front of the domain name. `^https:/{2}[a-zA-z0-9]\w*.[a-zA-z0-9]\w*`
+
  UW Bootcamp Tutorial:
 
  `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`
@@ -293,7 +294,7 @@ If we had used the above class contraint [a-zA-Z0-9]\w* to search for https or h
 
 First, we have to use a group () to associate https and http. Add the | operator in between https and http to get the this following starter code;
 
-Starter code: `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*`
+Starter code: `^(http|https):/{2}[a-zA-z0-9]/w*.[a-zA-z0-9]\w*`
 
 using this above code now captures the http://www.vertex.gov target expression.
 
@@ -362,7 +363,7 @@ In fact, the above regex would also find any single words encased in brackets.
 \D      - Not a Digit (0-9)
 \W      - Not a Word Character
 
-Lets take the starting code `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
+Lets take the starting code `^(http|https:/{2}[a-zA-z0-9]/w*.[a-zA-z0-9]\w*`
 
 We know now that the "." can be expressed as `.` , `\W`. lets go ahead and add this value to account for the "."
 
@@ -398,10 +399,14 @@ UW Bootcamp Version: `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*
 
 - Searches for URLs and expanded directories
 
-Starter Code Version: `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
+Starter Code Version: `^(http|https):/{2}(w{3}|[a-zA-Z0-9]\w*).[a-zA-z0-9]\w*\W(edu|gov|com)$`
 
 - Searchers for URLS wihtout expanded directories.
 
 ## Author
 
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+Github Profile: JMagic-Learner 
+
+BIO: A aspiring coder currently in the UWBootCamp program. Currently learning MongoDb.
+
+https://github.com/JMagic-Learner

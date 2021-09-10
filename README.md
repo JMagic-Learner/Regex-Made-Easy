@@ -277,12 +277,12 @@ So far we've talked about
 
 UW Bootcamp Tutorial 
 
-`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+* `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
 As you can see, we can explicitly find examples of character classes in the UW Regex.
 As built on from prior sections, we can clearly see why the regex expression is looking for generalized ranges of characters. By doing so, you can call out www. , domain names, and .edu/gov/etc ending urls.
 
-`([\da-z\.-]+)` will try to find all one or more instances of `[\da-z\.-]`
+* `([\da-z\.-]+)` will try to find all one or more instances of `[\da-z\.-]`
 
 
 ### The OR Operator
@@ -309,23 +309,23 @@ Flags are operators that add utility to regex expressions;
 
 Lets take a look at some flags;
 
-`i` - Denoted after a slash, the `i` operator will search for values , ignoring case sensitivity.
+* `i` - Denoted after a slash, the `i` operator will search for values , ignoring case sensitivity.
 
 For example \hello\i would match 
-HELLO, 
-Hello, 
-HeLlO, 
-heLLO
+- HELLO, 
+- Hello, 
+- HeLlO, 
+- heLLO
 
-`g` - Would allow the search to find all search values containing the parameter. By default, only the first search value would appear.
+* `g` - Would allow the search to find all search values containing the parameter. By default, only the first search value would appear.
 
-`m` - Allows the search value to cover parameters that are broken in two lines.
+* `m` - Allows the search value to cover parameters that are broken in two lines.
 
-`s` - Gives the search function the capabality to newline character
+* `s` - Gives the search function the capabality to newline character
 
-`u` - Enables full unicode support for REGEX EXPRESSIONS
+* `u` - Enables full unicode support for REGEX EXPRESSIONS
 
-`y` - Allows search functions to find the position of parameters
+* `y` - Allows search functions to find the position of parameters
 
 From experimenting in VS code so far, you might notice that VS code seems to have a number of these Flags on by default. 
 
@@ -350,25 +350,25 @@ The \] denotes that yuo are looking specifically for the "closing brackets ]"
 
 In fact, the above regex would also find any single words encased in brackets.
 
-[Like]
-[This]
+- [Like]
+- [This]
 
-\d      - Digit (0-9)
-\w      - Word Character (a-z, A-Z, 0-9, _)
-\s      - Whitespace (space, tab, newline)
+* \d      - Digit (0-9)
+* \w      - Word Character (a-z, A-Z, 0-9, _)
+* \s      - Whitespace (space, tab, newline)
 
-\b      - Word Boundary
-\B      - Not a Word Boundary
+* \b      - Word Boundary
+* \B      - Not a Word Boundary
 
-\S      - Not Whitespace (space, tab, newline)
-\D      - Not a Digit (0-9)
-\W      - Not a Word Character
+* \S      - Not Whitespace (space, tab, newline)
+* \D      - Not a Digit (0-9)
+* \W      - Not a Word Character
 
 Lets take the starting code `^(http|https:/{2}[a-zA-z0-9]/w*.[a-zA-z0-9]\w*`
 
 We know now that the "." can be expressed as `.` , `\W`. lets go ahead and add this value to account for the "."
 
-`^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*\W`
+* `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*\W`
 
 Now lets account for the .edu, .gov, .com variations in urls.
 
@@ -376,11 +376,11 @@ We could do a hard code `(edu|gov|com)`, or `[a-zA-z0-9]\w*`
 
 Using the latter would actually hit a dummy code. The former narrows the values of the search to a valid URL.
 
-`^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W(edu|gov|com)`
+* `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W(edu|gov|com)`
 
 UW Bootcamp Tutorial:
 
-`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+* `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
 There are many character escapes in this REGEX.
 

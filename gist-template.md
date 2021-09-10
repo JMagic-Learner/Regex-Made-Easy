@@ -1,13 +1,13 @@
 
-# Regex Expressions - Finding "Nemo" 
+# Regex Expressions - Finding "URL" 
 
-Somewhere along the line as a coder, you've probably heard of Regex Expressions. An regex expression is essentially a search function built into many coding engines that allows the user to find specific text.
+Somewhere along the line as a coder, you've probably heard of Regex Expressions. An regex expression is essentially a search function that allows the user to modify the parameters of the search.
 
 ## Summary
 
-We are going to search for a specific url in a list of urls. Think of trying to search through a list of websites and thier corresponding passwords.
+We are going to search for a specific url in a list of urls. 
 
-Take these following website urls. This is pretty standard plaintext.
+Take these following website urls for example. This list is going to be a target sheet for your REGEX expressions.
 
 TARGET URL (What needs to be searched via REGEX)
 
@@ -40,6 +40,8 @@ Use the Ctrl-F (Search) and click the .* option in VS code. The .* function allo
 
 Now the above Regex expression probably looks absolute gibberish, but the following definitions and tutorials will help you understand how the above code matches the target url.
 
+We will break down the UW REGE. In contrast, we will build up our unique REGEX
+
 ## Table of Contents
 
 - [Anchors](#anchors)
@@ -56,13 +58,15 @@ Now the above Regex expression probably looks absolute gibberish, but the follow
 
 Regex expressions are comprised of multiple components, that help define and narrow the search criteria. You can search for all encompassing constraints or select a specific character or character sequence.
 
-Examples;
-Single Characters 
-Wild Cards
-Bracket Expression
-Groups
-Escapes
-Anchors
+
+The basic REGEX components are comprised of the following;
+
+* Single Characters 
+* Wild Cards
+* Bracket Expression
+* Groups
+* Escapes
+* Anchors
 
 
 #### Sample Regexs ####
@@ -77,9 +81,8 @@ We will discuss how to generate this string step by step. Throughout the process
 
 Anchors are search parameters that define the start/end string.
 
-Target Expression        REGEX
-vidY                     [a-zA-z]*Y
-H213i{}()                ^H.*\)$
+Target Expression       H213i{}()    
+REGEX                    ^H\w*
 
 .       - Any Character Except New Line
 ^       - Beginning of a String
@@ -114,10 +117,10 @@ Quantifiers are constraints that denote how many times a particular string chara
 For example,
 
 TARGET STRING       REGEX EXPRESSION
-a                   = a
-aa                  = a+ or a{2}
-aaa                 = a{3}
-aa22fiftyone51      = a+2+[a-zA-z]*\d*
+a                   = `a`
+aa                  = `a+ or a{2}`
+aaa                 = `a{3}`
+aa22fiftyone51      = `a+2+[a-zA-z]*\d*`
 
 Quantifiers:
 *       - 0 or More
@@ -130,11 +133,17 @@ With the starter code '^https:', lets add a way to find the slash marks after ht
 
 we can denote "//" as '/{2}' or '/+'
 
-So far the regex code can either be;
+So far the regex code can either be; `^https:/{2}` or `^https:/+`
 
-`^https:/{2}`
-or
-`^https:/+`
+Lets expand on our existing code `^https:/{2}`
+
+So far we know that after the double "//", there usually comes a string or group of characters to signifiy the "WWW".
+
+Lets add onto the existing code like so `^https:/{2}(w{3}}`.
+
+
+
+We can then extend this to be `^https:/{2}w{3}` or `^https:/+w{3}`
 
 As you can see, there are many ways to denote duplicate sequential characters
 
@@ -156,15 +165,12 @@ You might be asking, why in the world would I need to group characters when you 
 
 Groups allow you to generalize search terms so you can encompass a greater search pattern.
 
-Lets expand on our existing code `^https:/{2}`
+You're thinking, why in the world would we do this? 
 
-So far we know that after the double "//", there usually comes a string or group of characters to signifiy the "WWW".
-
-Lets add onto the existing code like so `^https:/{2}(w{3}}`.
-You're thinking, why in the world would we do this? `^https:/{2}www` or ``^https:/{2}w{3}` also works.
-
-The reason is what happens if there is a custom lead url as well as instead of WWW?
+The reason is what happens if there are custom lead urls as well WWW?
 You would then need to find a way to search for the custom lead url and www, just like you would need to find a way to account for https vs http and .com vs edu vs gov."
+
+We can convert our starter code into something like this; `^https:/{2}(w{3})`. This might look redundant, but the concept of grouping search parameters together will come into play in regards to the https vs http split.
 
 UW Bootcamp Tutorial:
 
@@ -175,17 +181,17 @@ Lets begin by identifying the groups in this REGEX.
 `^(Group1)?(Group2)\.(Group3)(Group4)*\/?$/`
 
 Group 1:
-(https?:\/\/) - An expression that conditionally adds "://" if there is an http
+`(https?:\/\/)` - An expression that conditionally adds "://" if there is an http
 
 Group 2:
-([\da-z\.-]+) - Finds one or more instances of a string of characters separated by a period
+`([\da-z\.-]+)` - Finds one or more instances of a string of characters separated by a period
 
 Groupe 3: 
-([a-z\.]{2,6}) - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
+`([a-z\.]{2,6})` - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
 
 Group 4:
 
-([\/\w \.-]*)* - This would account for trailing ends of the URL
+`([\/\w \.-]*)*` - This would account for trailing ends of the URL
 
 
 
@@ -227,21 +233,21 @@ UW Bootcamp Tutorial:
 Touching off from groups, we can see brackets inside some of our group sections. We find brackets in Group 1, Group 2, and Group 3
 
 Group 2:
-([\da-z\.-]+) - Is specifically looking for all lowercase characters a-z followed by a character escape of a period. This is specifcally looking for one or more instances of this value. Examples would be www.zenith or www.hero.
+`([\da-z\.-]+)` - Is specifically looking for all lowercase characters a-z followed by a character escape of a period. This is specifcally looking for one or more instances of this value. Examples would be www.zenith or www.hero.
 
 Group 3: 
-([a-z\.]{2,6}) - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
+`([a-z\.]{2,6})` - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
 
 Group 4:
 
-([\/\w \.-]*)* - This is looking for the escaped slash mark, a word character, and a escaped period
+`([\/\w \.-]*)*` - This is looking for the escaped slash mark, a word character, and a escaped period
 
 
 
 ### Character Classes
 
 Think of character classes as a category of characters that you are searching for. 
-for example, the vast majority of text in this md is of the text "class". Character classes are found via using brackets [ ] 
+for example, the vast majority of text in this md is of the "text" class. Character classes are found via using brackets [ ] 
 
 Character classes is special notation for matching cateogires of characters.
 
@@ -252,9 +258,9 @@ Examples
  0[xX][A-Fa-f0-9]+ searches for CSS hexadecimal numbers
 
 
- A character class is specific. Tr[ue]
+A character class is specific.
 
- sample code `^https:/{2}(w{3}).[a-zA-z0-9]\w*`
+Our Starter code:  `^https:/{2}(w{3}).[a-zA-z0-9]\w*`
 
  The above sample code section; `[a-zA-z0-9]` allows us to search for any character, any digit after the "www.". The "\w*" then notates that we are taking a succession, or sequence of characters that fullfil the search criteria of any character/any digit.
 
@@ -287,7 +293,7 @@ If we had used the above class contraint [a-zA-Z0-9]\w* to search for https or h
 
 First, we have to use a group () to associate https and http. Add the | operator in between https and http to get the this following starter code;
 
-Starter code: `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*`
+Starter code: `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*`
 
 using this above code now captures the http://www.vertex.gov target expression.
 

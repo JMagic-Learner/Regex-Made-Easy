@@ -11,17 +11,17 @@ Take these following website urls for example. This list is going to be a target
 
 TARGET URL (What needs to be searched via REGEX)
 
-https://www.ZenithHighlight.com
-https://www.facebook.com
-https://www.sample.edu
-http://www.vertex123.gov
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+* https://www.ZenithHighlight.com
+* https://www.facebook.com
+* https://www.sample.edu
+* http://www.vertex123.gov
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
 DUMMY TARGET/CODE (Used to test false positives)
 
-com.facebook.www//:https
-http://www.vertex.jello
-1213$$$vvv.jt3456.$$%hs
+* com.facebook.www//:https
+* http://www.vertex.jello
+* 1213$$$vvv.jt3456.$$%hs
 
 We are first going to generate our own REGEX expression via a step by step walkthrough. 
 In addition to this, we are going to take a look at the UWBootcamp REGEX expression, that is more comprehensive.
@@ -30,11 +30,11 @@ The UW Bootcamp versioon of the REGEX expression will also be explained along th
 
 This is our starter code:
 
-`^(http|https):/{2}(w{3}|[a-zA-Z0-9]\w*).[a-zA-z0-9]\w*\W(edu|gov|com)$`
+* `^(http|https):/{2}(w{3}|[a-zA-Z0-9]\w*).[a-zA-z0-9]\w*\W(edu|gov|com)$`
 
 This is the UW Bootcamp variation;
 
-`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+* `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
 Use the Ctrl-F (Search) and click the .* option in VS code. The .* function allows the search to use regex expressions to find matching strings.
 
@@ -73,7 +73,7 @@ The basic REGEX components are comprised of the following;
 
 The sample REGEX we will be discussing is a simple search of any URL.
 
-`^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
+* `^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
 
 We will discuss how to generate this string step by step. Throughout the process, we will dicuss the relevancy of each component being added to the REGEX expression.
 
@@ -81,12 +81,13 @@ We will discuss how to generate this string step by step. Throughout the process
 
 Anchors are search parameters that define the start/end string.
 
-Target Expression       H213i{}()    
+Target Expression       H213i{}() 
+
 REGEX                    ^H\w*
 
-.       - Any Character Except New Line
-^       - Beginning of a String
-$       - End of a String
+* .       - Any Character Except New Line
+* ^       - Beginning of a String
+* $       - End of a String
 
 As well all know, complete URLs either start with https or http. Don't worry, you will learn how to do "or" statements in this tutorial.
 
@@ -117,17 +118,17 @@ Quantifiers are constraints that denote how many times a particular string chara
 For example,
 
 TARGET STRING       REGEX EXPRESSION
-a                   = `a`
-aa                  = `a+ or a{2}`
-aaa                 = `a{3}`
-aa22fiftyone51      = `a+2+[a-zA-z]*\d*`
+* a                   = `a`
+* aa                  = `a+ or a{2}`
+* aaa                 = `a{3}`
+* aa22fiftyone51      = `a+2+[a-zA-z]*\d*`
 
 Quantifiers:
-*       - 0 or More
-+       - 1 or More
-?       - 0 or One
-{3}     - Exact Number
-{3,4}   - Range of Numbers (Minimum, Maximum)
+* *       - 0 or More
+* +       - 1 or More
+* ?       - 0 or One
+* {3}     - Exact Number
+* {3,4}   - Range of Numbers (Minimum, Maximum)
 
 With the starter code `^https:`, lets add a way to find the slash marks after https:
 
@@ -174,24 +175,24 @@ We can convert our starter code into something like this; `^https:/{2}(w{3})`. T
 
 UW Bootcamp Tutorial:
 
-`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+* `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
 Lets begin by identifying the groups in this REGEX.
 
-`^(Group1)?(Group2)\.(Group3)(Group4)*\/?$/`
+* `^(Group1)?(Group2)\.(Group3)(Group4)*\/?$/`
 
 Group 1:
-`(https?:\/\/)` - An expression that conditionally adds "://" if there is an http
+* `(https?:\/\/)` - An expression that conditionally adds "://" if there is an http
 
 Group 2:
-`([\da-z\.-]+)` - Finds one or more instances of a string of characters separated by a period
+* `([\da-z\.-]+)` - Finds one or more instances of a string of characters separated by a period
 
 Groupe 3: 
-`([a-z\.]{2,6})` - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
+* `([a-z\.]{2,6})` - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
 
 Group 4:
 
-`([\/\w \.-]*)*` - This would account for trailing ends of the URL
+* `([\/\w \.-]*)*` - This would account for trailing ends of the URL
 
 
 
@@ -216,7 +217,7 @@ So far we have (w{3}) to denote "www". Right now, we can define sequential dupli
 
 Here is when we add a bracket []
 
-`^https:/{2}(w{3}).[   ]`
+* `^https:/{2}(w{3}).[   ]`
 
 Remember, brackets can affect multiple types of characters. Unlike groups, which target a specific set, brackets address the categories.
 
@@ -226,20 +227,20 @@ For example, you can type out ZenithHighlight. Or you can type in [a-zA-z] to se
 
 UW Bootcamp Tutorial:
 
-`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
+* `^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/`
 
 
 Touching off from groups, we can see brackets inside some of our group sections. We find brackets in Group 1, Group 2, and Group 3
 
 Group 2:
-`([\da-z\.-]+)` - Is specifically looking for all lowercase characters a-z followed by a character escape of a period. This is specifcally looking for one or more instances of this value. Examples would be www.zenith or www.hero.
+* `([\da-z\.-]+)` - Is specifically looking for all lowercase characters a-z followed by a character escape of a period. This is specifcally looking for one or more instances of this value. Examples would be www.zenith or www.hero.
 
 Group 3: 
-`([a-z\.]{2,6})` - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
+* `([a-z\.]{2,6})` - Finds 2 or 6 instances of character strings separated by a slash. This would account for the .www, edu, gov etc + directory.
 
 Group 4:
 
-`([\/\w \.-]*)*` - This is looking for the escaped slash mark, a word character, and a escaped period
+* `([\/\w \.-]*)*` - This is looking for the escaped slash mark, a word character, and a escaped period
 
 
 
@@ -251,10 +252,10 @@ for example, the vast majority of text in this md is of the "text" class. Charac
 Character classes is special notation for matching cateogires of characters.
 
 Examples
- [a-z]  Searches for a single character in  lowercase text.
- [A-Z]  Searches for a single character in all uppercase text
- [0-9]  Searches for numerical characters
- 0[xX][A-Fa-f0-9]+ searches for CSS hexadecimal numbers
+* [a-z]  Searches for a single character in  lowercase text.
+* [A-Z]  Searches for a single character in all uppercase text
+* [0-9]  Searches for numerical characters
+* 0[xX][A-Fa-f0-9]+ searches for CSS hexadecimal numbers
 
 
 A character class is specific.

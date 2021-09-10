@@ -30,7 +30,7 @@ The UW Bootcamp versioon of the REGEX expression will also be explained along th
 
 This is our starter code:
 
-`^(http|https):/{2}(w{3}).[a-zA-z0-9]\w*\W$(edu|gov|com)`
+`^(http|https):/{2}(w{3}|[a-zA-Z0-9]\w*).[a-zA-z0-9]\w*\W(edu|gov|com)$`
 
 This is the UW Bootcamp variation;
 

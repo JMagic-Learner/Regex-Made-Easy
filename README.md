@@ -84,7 +84,7 @@ We will discuss how to generate this string step by step. Throughout the process
 
 ### Anchors
 
-Anchors are search parameters that define the start/end string.
+Anchors are search parameters that define the start/end of a particular string segment.
 
 Target Expression       H213i{}() 
 
@@ -93,6 +93,17 @@ REGEX                    ^H\w*
 * .       - Any Character Except New Line
 * ^       - Beginning of a String
 * $       - End of a String
+
+* \d      - Digit (0-9)
+* \w      - Word Character (a-z, A-Z, 0-9, _)
+* \s      - Whitespace (space, tab, newline)
+
+* \b      - Word Boundary
+* \B      - Not a Word Boundary
+
+* \S      - Not Whitespace (space, tab, newline)
+* \D      - Not a Digit (0-9)
+* \W      - Not a Word Character
 
 As well all know, complete URLs either start with https or http. Don't worry, you will learn how to do "or" statements in this tutorial.
 
@@ -165,6 +176,7 @@ In terms of qauntifiers, there is asn instance of an quantifier denoted by `{2,6
 ### Grouping Constructs
 
 ( )     - Group
+(? )    - Group (Non Capture)
 
 Groups is a method to capture multiple characters in a single constraint.
 You might be asking, why in the world would I need to group characters when you can type raw text to search for character sequences?
@@ -294,6 +306,7 @@ As built on from prior sections, we can clearly see why the regex expression is 
 
 |       - Either Or
 
+
 If you've been following along the tutorial so far, you'd probably remember that near the beginning of this tutorial we had to address how to find capture both https and http search values.
 
 If we had used the above class contraint [a-zA-Z0-9]\w* to search for https or http, this regex expression would've found any string sequence in front of a non-digit/non-character. Instead, we can narrow down the starting search values by using the "|" expression. 
@@ -357,17 +370,6 @@ In fact, the above regex would also find any single words encased in brackets.
 
 - [Like]
 - [This]
-
-* \d      - Digit (0-9)
-* \w      - Word Character (a-z, A-Z, 0-9, _)
-* \s      - Whitespace (space, tab, newline)
-
-* \b      - Word Boundary
-* \B      - Not a Word Boundary
-
-* \S      - Not Whitespace (space, tab, newline)
-* \D      - Not a Digit (0-9)
-* \W      - Not a Word Character
 
 Lets take the starting code `^(http|https:/{2}[a-zA-z0-9]\w*.[a-zA-z0-9]\w*`
 

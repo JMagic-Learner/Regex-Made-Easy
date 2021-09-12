@@ -11,17 +11,22 @@ Take these following website urls for example. This list is going to be a target
 
 TARGET URL (What needs to be searched via REGEX)
 
-* https://www.ZenithHighlight.com
-* https://www.facebook.com
-* https://www.sample.edu
-* http://www.vertex123.gov
-* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+https://www.ZenithHighlight.com
+
+https://www.facebook.com
+
+https://www.sample.edu
+
+http://www.vertex123.gov
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
 DUMMY TARGET/CODE (Used to test false positives)
 
-* com.facebook.www//:https
-* http://www.vertex.jello
-* 1213$$$vvv.jt3456.$$%hs
+com.facebook.www//:https
+
+http://www.vertex.jello
+1213$$$vvv.jt3456.$$%hs
 
 We are first going to generate our own REGEX expression via a step by step walkthrough. 
 In addition to this, we are going to take a look at the UWBootcamp REGEX expression, that is more comprehensive.
@@ -295,7 +300,7 @@ If we had used the above class contraint [a-zA-Z0-9]\w* to search for https or h
 
 First, we have to use a group () to associate https and http. Add the | operator in between https and http to get the this following starter code;
 
-Starter code: `^(http|https):/{2}[a-zA-z0-9]/w*.[a-zA-z0-9]\w*`
+Starter code: `^(http|https):/{2}[a-zA-z0-9]\w*.[a-zA-z0-9]\w*`
 
 using this above code now captures the http://www.vertex.gov target expression.
 
@@ -364,11 +369,11 @@ In fact, the above regex would also find any single words encased in brackets.
 * \D      - Not a Digit (0-9)
 * \W      - Not a Word Character
 
-Lets take the starting code `^(http|https:/{2}[a-zA-z0-9]/w*.[a-zA-z0-9]\w*`
+Lets take the starting code `^(http|https:/{2}[a-zA-z0-9]\w*.[a-zA-z0-9]\w*`
 
 We know now that the "." can be expressed as `.` , `\W`. lets go ahead and add this value to account for the "."
 
-* `^(http|https:/{2}(w{3}).[a-zA-z0-9]\w*\W`
+* `^(http|https:/{2}[a-zA-z0-9]\w*.[a-zA-z0-9]\w*\W`
 
 Now lets account for the .edu, .gov, .com variations in urls.
 
